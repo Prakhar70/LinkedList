@@ -32,20 +32,29 @@ public class IsPalindromeLL {
         if (head == null || head.next == null) {
             return true;
         }
+
         ListNode midNode = middleNode(head);
 
-        ListNode reversedLL = reverseList(midNode.next);
+        ListNode nHead = midNode.next;
         midNode.next = null;
+
+        ListNode reversedLL = reverseList(nHead);
 
         ListNode curr1 = head;
         ListNode curr2 = reversedLL;
+
+        boolean res = true;
         while (curr1 != null && curr2 != null) {
             if (curr1.val != curr2.val) {
-                return false;
+                res = false;
             }
             curr1 = curr1.next;
             curr2 = curr2.next;
         }
-        return true;
+        
+        midNode.next = reverseList(nHead);
+
+        return res;
+
     }
 }
