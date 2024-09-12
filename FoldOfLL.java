@@ -33,20 +33,27 @@ public class FoldOfLL {
         }
         ListNode midNode = middleNode(head);
         ListNode nHead = midNode.next;
-
+    
+        midNode.next = null;
+        
         ListNode rHead = reverseList(nHead);
 
         ListNode c1 = head;
         ListNode c2 = rHead;
+
+        ListNode f1 = null;
+        ListNode f2 = null;
+        
         while(c2 != null){
-            ListNode t1 = c2.next;
-            ListNode t2 = c1.next;
+            
+            f1 = c1.next;
+            f2 = c2.next;
 
             c1.next = c2;
-            c2.next = t1;
+            c2.next = f1;
             
-            c1 = t1;
-            c2 = t2;
+            c1 = f1;
+            c2 = f2;
         }
     }
 }
