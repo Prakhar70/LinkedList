@@ -1,4 +1,4 @@
-public class IsPalindromeLL {
+public class FoldOfLL {
     public ListNode reverseList(ListNode head) {
         if (head == null || head.next == null) {
             return head;
@@ -27,34 +27,26 @@ public class IsPalindromeLL {
         return slow;
     }
 
-    public boolean isPalindrome(ListNode head) {
-
-        if (head == null || head.next == null) {
-            return true;
+    public void reorderList(ListNode head) {
+        if(head == null || head.next == null){
+            return;
         }
-
         ListNode midNode = middleNode(head);
-
         ListNode nHead = midNode.next;
-        midNode.next = null;
 
-        ListNode reversedLL = reverseList(nHead);
+        ListNode rHead = reverseList(nHead);
 
-        ListNode curr1 = head;
-        ListNode curr2 = reversedLL;
+        ListNode c1 = head;
+        ListNode c2 = rHead;
+        while(c2 != null){
+            ListNode t1 = c2.next;
+            ListNode t2 = c1.next;
 
-        boolean res = true;
-        while (curr1 != null && curr2 != null) {
-            if (curr1.val != curr2.val) {
-                res = false;
-            }
-            curr1 = curr1.next;
-            curr2 = curr2.next;
+            c1.next = c2;
+            c2.next = t1;
+            
+            c1 = t1;
+            c2 = t2;
         }
-
-        midNode.next = reverseList(nHead);
-
-        return res;
-
     }
 }
