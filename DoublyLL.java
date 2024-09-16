@@ -31,4 +31,19 @@ public class DoublyLL {
         addFirstNode(node);
     }
 
+    private void addLastNode(Node node){
+        if (this.size==0){
+            this.head = this.tail = node;
+        }else{
+            this.tail.next = node;
+            node.prev = tail;
+            this.tail = node;
+        }
+    }
+
+    public void addLast(int val){
+        Node node = new Node(val);
+        addLastNode(node);
+    }
+
 }
