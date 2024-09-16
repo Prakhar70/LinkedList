@@ -27,24 +27,10 @@ public class Sort012 {
             }
             curr = curr.next;
         }
-        zero.next = null;
-        one.next = null;
+        one.next = dummy2.next;
+        zero.next = dummy1.next;
         two.next = null;
         
-        if (dummy0.next != null && dummy1.next != null){
-            zero.next = dummy1.next;
-            one.next = dummy2.next;
-            return dummy0.next;
-        }
-        if (dummy0.next == null && dummy1.next != null){
-            
-            one.next = dummy2.next;
-            return dummy1.next;
-        }
-        if (dummy0.next != null && dummy1.next == null){
-            zero.next = dummy2.next;
-            return dummy0.next;
-        }
-        return dummy2.next;
+        return dummy0.next;
     }
 }
