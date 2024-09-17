@@ -271,23 +271,22 @@ public class DoublyLL {
     public int removeNode(Node refNode) {
         Node prev = refNode.prev;
         Node next = refNode.next;
-        if(this.size == 1){
+        if (this.size == 1) {
             this.head = this.tail = null;
             this.size--;
             return refNode.val;
-        }
-        else if (prev == null) {
+        } else if (prev == null) {
             this.head = next;
-            
+
         } else if (next == null) {
-        
+
             this.tail = prev;
-        }else{
+        } else {
             prev.next = next;
             next.prev = prev;
         }
 
-        refNode.prev = refNode.next = this.head.prev= this.tail.next=null;
+        refNode.prev = refNode.next = this.head.prev = this.tail.next = null;
         this.size--;
         return refNode.val;
 
@@ -300,6 +299,36 @@ public class DoublyLL {
 
     public boolean isEmpty() {
         return this.size == 0;
+    }
+
+    public void displayForward() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        Node curr = this.head;
+        while (curr != null) {
+            sb.append(curr.val);
+            if (curr.next != null) {
+                sb.append(",");
+            }
+            curr = curr.next;
+        }
+        sb.append("]");
+        System.out.println(sb.toString());
+    }
+
+    public void displayBackward() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        Node curr = this.tail;
+        while (curr != null) {
+            sb.append(curr.val);
+            if (curr.next != null) {
+                sb.append(",");
+            }
+            curr = curr.prev;
+        }
+        sb.append("]");
+        System.out.println(sb.toString());
     }
 
     // getFunctions
