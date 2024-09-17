@@ -268,7 +268,31 @@ public class DoublyLL {
         return prevNode;
     }
 
-    
+    public int removeNode(Node refNode) {
+        Node prev = refNode.prev;
+        Node next = refNode.next;
+        if(this.size == 1){
+            this.head = this.tail = null;
+            this.size--;
+            return refNode.val;
+        }
+        else if (prev == null) {
+            this.head = next;
+            
+        } else if (next == null) {
+        
+            this.tail = prev;
+        }else{
+            prev.next = next;
+            next.prev = prev;
+        }
+
+        refNode.prev = refNode.next = this.head.prev= this.tail.next=null;
+        this.size--;
+        return refNode.val;
+
+    }
+
     // Basic Functions
     public int size() {
         return this.size();
