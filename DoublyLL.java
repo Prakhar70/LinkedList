@@ -243,6 +243,32 @@ public class DoublyLL {
 
     }
 
+    public int removeBefore(Node refNode) {
+
+        if (refNode.prev == null) {
+            System.out.println("Location is Invalid");
+            return -1;
+        }
+        return removeBeforeNode(refNode).val;
+    }
+
+    private Node removeBeforeNode(Node refNode) {
+        Node prevNode = refNode.prev;
+        if (prevNode.prev == null) {
+            refNode.prev = null;
+            prevNode.next = null;
+
+            this.head = refNode;
+        } else {
+            prevNode.prev.next = refNode;
+            refNode.prev = prevNode.prev;
+            prevNode.prev = prevNode.next = null;
+        }
+        this.size--;
+        return prevNode;
+    }
+
+    
     // Basic Functions
     public int size() {
         return this.size();
