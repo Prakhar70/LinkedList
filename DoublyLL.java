@@ -47,32 +47,104 @@ public class DoublyLL {
         addLastNode(node);
     }
 
-    public void addAt(int index, int data){
-    
-        if (IndexIsInvalidException(index, 0, this.size)){
+    public void addAt(int index, int data) {
+
+        if (IndexIsInvalidException(index, 0, this.size)) {
             return;
         }
         Node node = new Node(data);
-        addNodeAt (index, node);
+        addNodeAt(index, node);
 
     }
 
     private void addNodeAt(int index, Node node) {
-        if (index == 0){
+        if (index == 0) {
             addFirstNode(node);
-        }else if (index == this.size){
+        } else if (index == this.size) {
             addLastNode(node);
         }
         Node forw = getNodeAt(index);
         Node prev = forw.prev;
 
         prev.next = node;
-        node.prev = prev; 
+        node.prev = prev;
 
         node.next = forw;
         forw.prev = node;
-        this.size ++;
-        
+        this.size++;
+
+    }
+
+    public void addBefore(Node refNode, int data) {
+        Node newNode = new Node(data);
+        addBefore(refNode, newNode);
+    }
+
+    private void addBefore(Node refNode, Node node) {
+        Node prevNode = refNode.prev;
+        if (prevNode == null) {
+            node.next = refNode;
+            refNode.prev = node;
+
+            this.head = node;
+        } else {
+            prevNode.next = node;
+            node.prev = prevNode;
+
+            node.next = refNode;
+            refNode.prev = node;
+        }
+        this.size++;
+    }
+
+    public void addAfter(Node refNode, int data) {
+        Node newNode = new Node(data);
+        addAfter(refNode, newNode);
+    }
+
+    private void addAfter(Node refNode, Node node) {
+        Node nextNode = refNode.next;
+        if (nextNode == null) {
+            refNode.next = node;
+            node.prev = refNode;
+
+            this.tail = node;
+        } else {
+            node.next = nextNode;
+            node.prev = refNode;
+
+            refNode.next = node;
+            nextNode.prev = node;
+        }
+        this.size++;
+    }
+
+    public int removeAfter(Node refNode) {
+        if (refNode.next == null) {
+            System.out.println("Location is Invalid");
+            return -1;
+        }
+        return removeAfterNode(refNode).val;
+    }
+
+    public Node removeAfterNode(Node refNode) {
+
+        Node forwd = refNode.next;
+        if (forwd.next == null) {
+            forwd.prev = null;
+            refNode.next = null;
+
+            this.tail = forwd;
+        } else {
+            refNode.next = forwd.next;
+            forwd.next = refNode;
+
+            forwd.next = null;
+            forwd.prev = null;
+        }
+        this.size--;
+        return forwd;
+
     }
 
     // Exceptions
@@ -145,6 +217,32 @@ public class DoublyLL {
 
     }
 
+    public int removeAt(int index) {
+        if (ListIsEmptyException()) {
+            return -1;
+        }
+        if (IndexIsInvalidException(index, 0, this.size - 1)) {
+            return -1;
+        }
+        return removeNodeAt(index).val;
+    }
+
+    private Node removeNodeAt(int index) {
+        if (index == 0) {
+            return removeFirstNode();
+        } else if (index == this.size - 1) {
+            return removeLastNode();
+        }
+        Node node = getNodeAt(index);
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        node.next = null;
+        node.prev = null;
+        this.size--;
+        return node;
+
+    }
+
     // Basic Functions
     public int size() {
         return this.size();
@@ -169,18 +267,19 @@ public class DoublyLL {
         return this.tail.val;
     }
 
-    private Node getNodeAt (int index){
+    private Node getNodeAt(int index) {
         Node curr = this.head;
-        while (index-- > 0){
+        while (index-- > 0) {
             curr = curr.next;
         }
         return curr;
     }
+
     public int getAt(int index) {
         if (ListIsEmptyException()) {
             return -1;
         }
-        if (IndexIsInvalidException(index, 0, this.size-1)){
+        if (IndexIsInvalidException(index, 0, this.size - 1)) {
             return -1;
         }
         return getNodeAt(index).val;
